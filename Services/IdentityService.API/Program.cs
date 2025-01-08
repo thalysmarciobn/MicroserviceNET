@@ -1,10 +1,8 @@
 using Carter;
 using Common.Behaviors;
-using CQRS;
+using Common.Extensions;
 using FluentValidation;
 using IdentityService.Application;
-using IdentityService.Application.Commands;
-using IdentityService.Application.Handlers;
 
 var applicationAssembly = Global.Assembly;
 
@@ -23,7 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCarter();
-builder.Services.AddTransient<ICommandHandler<LoginCommand, LoginResult>, LoginCommandHandler>();
+builder.Services.AddCommandHandlersFromAssembly(applicationAssembly);
 
 var app = builder.Build();
 

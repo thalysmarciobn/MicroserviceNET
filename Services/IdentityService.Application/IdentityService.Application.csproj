@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\CQRS\CQRS.csproj" />
+        <ProjectReference Include="..\..\CQRS\CQRS.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="FluentValidation">
-        <HintPath>..\..\..\..\.nuget\packages\fluentvalidation\12.0.0-preview1\lib\net8.0\FluentValidation.dll</HintPath>
-      </Reference>
+        <Reference Include="FluentValidation">
+            <HintPath>..\..\..\..\.nuget\packages\fluentvalidation\12.0.0-preview1\lib\net8.0\FluentValidation.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>

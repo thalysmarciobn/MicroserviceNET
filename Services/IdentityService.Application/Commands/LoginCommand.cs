@@ -1,9 +1,8 @@
 using CQRS;
 using IdentityService.Application.Requests;
+using IdentityService.Application.Responses;
 
 namespace IdentityService.Application.Commands;
 
-public record LoginResult(bool IsSuccess);
-
-public record LoginCommand(LoginRequest Login) 
-    : ICommand<LoginResult>;
+public record LoginCommand(LoginRequest Login)
+    : ICommand<LoginResponse>;

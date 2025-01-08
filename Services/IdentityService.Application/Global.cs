@@ -5,6 +5,5 @@ namespace IdentityService.Application;
 
 public static class Global
 {
-    [NotNull]
-    public static readonly Assembly Assembly = typeof(Global).Assembly;
+    [NotNull] public static readonly Assembly Assembly = typeof(Global).Assembly;
 }

@@ -3,7 +3,7 @@ using IdentityService.Application.Commands;
 
 namespace IdentityService.Application.Validators;
 
-public class LoginCommandValidator 
+public class LoginCommandValidator
     : AbstractValidator<LoginCommand>
 {
     public LoginCommandValidator()
