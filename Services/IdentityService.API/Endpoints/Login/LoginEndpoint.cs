@@ -1,5 +1,5 @@
 using Carter;
-using CQRS;
+using Common.CQRS;
 using FluentValidation;
 using IdentityService.Application.Commands;
 using IdentityService.Application.Responses;

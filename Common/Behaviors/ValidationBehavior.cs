@@ -1,4 +1,4 @@
-using CQRS;
+using Common.CQRS;
 using FluentValidation;
 using MediatR;
 

@@ -1,5 +1,5 @@
 using MediatR;
 
-namespace CQRS;
+namespace Common.CQRS;
 
 public interface ICommand<out TResponse> : IRequest<TResponse>;

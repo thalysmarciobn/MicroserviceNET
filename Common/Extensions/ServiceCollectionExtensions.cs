@@ -1,5 +1,5 @@
 using System.Reflection;
-using CQRS;
+using Common.CQRS;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Common.Extensions;

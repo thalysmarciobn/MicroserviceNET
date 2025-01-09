@@ -25,7 +25,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Common\Common.csproj"/>
-        <ProjectReference Include="..\..\CQRS\CQRS.csproj"/>
         <ProjectReference Include="..\IdentityService.Application\IdentityService.Application.csproj"/>
     </ItemGroup>
 

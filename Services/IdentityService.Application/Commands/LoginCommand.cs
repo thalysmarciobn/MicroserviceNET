@@ -1,4 +1,4 @@
-using CQRS;
+using Common.CQRS;
 using IdentityService.Application.Requests;
 using IdentityService.Application.Responses;
 
