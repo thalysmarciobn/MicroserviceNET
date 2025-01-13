@@ -8,15 +8,11 @@ public class LoginCommandValidator
 {
     public LoginCommandValidator()
     {
-        RuleFor(x => x.Login)
-            .NotNull().WithMessage("Requisição não pode estar vazia.")
-            .When(x => true);
-
-        RuleFor(x => x.Login.Username)
+        RuleFor(x => x.Username)
             .NotEmpty().WithMessage("Requer um nome de usuário.")
             .When(x => true);
 
-        RuleFor(x => x.Login.Password)
+        RuleFor(x => x.Password)
             .NotEmpty().WithMessage("Requer uma senha.")
             .MinimumLength(6).WithMessage("A senha deve ter pelo menos 6 caracteres.")
             .When(x => true);

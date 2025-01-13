@@ -9,9 +9,7 @@ public class LoginCommandHandler
 {
     public async Task<LoginResponse> Handle(LoginCommand command, CancellationToken cancellationToken)
     {
-        var login = command.Login;
-
-        Console.WriteLine($"Autenticando usuário: {login.Username}");
+        Console.WriteLine($"Autenticando usuário: {command.Username}");
 
         return new LoginResponse(true);
     }

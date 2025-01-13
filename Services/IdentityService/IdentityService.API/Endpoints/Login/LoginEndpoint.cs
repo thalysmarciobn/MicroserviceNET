@@ -2,7 +2,9 @@ using Carter;
 using Common.CQRS;
 using FluentValidation;
 using IdentityService.Application.Commands;
+using IdentityService.Application.Requests;
 using IdentityService.Application.Responses;
+using Mapster;
 
 namespace IdentityService.API.Endpoints.Login;
 
@@ -11,14 +13,16 @@ public class LoginEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/login",
-                async (LoginCommand request, IValidator<LoginCommand> validator,
+                async (LoginRequest request, IValidator<LoginCommand> validator,
                     ICommandHandler<LoginCommand, LoginResponse> handler) =>
                 {
-                    var validationResult = await validator.ValidateAsync(request);
+                    var command = request.Adapt<LoginCommand>();
+                    
+                    var validationResult = await validator.ValidateAsync(command);
 
                     if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
 
-                    var result = await handler.Handle(request, CancellationToken.None);
+                    var result = await handler.Handle(command, CancellationToken.None);
 
                     return Results.Ok(result);
                 }).WithName("Login")

@@ -3,6 +3,7 @@ using Common.Behaviors;
 using Common.Extensions;
 using FluentValidation;
 using IdentityService.Application;
+using Mapster;
 
 var applicationAssembly = Global.Assembly;
 
@@ -21,6 +22,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCarter();
+builder.Services.AddMapster();
 builder.Services.AddCommandHandlersFromAssembly(applicationAssembly);
 
 var app = builder.Build();
