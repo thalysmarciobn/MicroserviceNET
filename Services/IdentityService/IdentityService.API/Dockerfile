@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["/IdentityService.API.csproj", "/"]
-RUN dotnet restore "/Services/IdentityService.API/IdentityService.API.csproj"
+RUN dotnet restore "/IdentityService.API.csproj"
 COPY . .
 WORKDIR "/src/Services/IdentityService.API"
 RUN dotnet build "IdentityService.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
