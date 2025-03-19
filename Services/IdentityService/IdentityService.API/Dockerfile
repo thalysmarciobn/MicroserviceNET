@@ -7,7 +7,7 @@ EXPOSE 5101
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY IdentityService.API.csproj ./
+COPY ../IdentityService.API/IdentityService.API.csproj ./
 RUN dotnet restore "IdentityService.API.csproj"
 COPY . .
 WORKDIR "/src"
