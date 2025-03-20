@@ -7,12 +7,13 @@ EXPOSE 5101
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
 COPY ["Services/IdentityService/IdentityService.API/IdentityService.API.csproj", "Services/IdentityService/IdentityService.API/"]
 COPY ["Services/IdentityService/IdentityService.Application/IdentityService.Application.csproj", "Services/IdentityService/IdentityService.Application/"]
 COPY ["Common/Common.csproj", "Common/"]
+
 RUN dotnet restore "Services/IdentityService/IdentityService.API/IdentityService.API.csproj"
-RUN dotnet restore "Services/IdentityService/IdentityService.Application/IdentityService.Application.csproj"
-RUN dotnet restore "Common/Common.csproj"
+
 COPY . .
 WORKDIR "/src/Services/IdentityService/IdentityService.API"
 RUN dotnet build "IdentityService.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
