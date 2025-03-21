@@ -16,7 +16,8 @@ public static class ServiceCollectionExtensions
             .Where(t => t.iface.IsGenericType && t.iface.GetGenericTypeDefinition() == handlerInterfaceType)
             .ToList();
 
-        foreach (var handler in handlerTypes) services.AddTransient(handler.iface, handler.type);
+        foreach (var handler in handlerTypes)
+            services.AddTransient(handler.iface, handler.type);
 
         return services;
     }

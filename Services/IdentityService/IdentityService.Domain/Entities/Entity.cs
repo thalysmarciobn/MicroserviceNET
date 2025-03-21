@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using IdentityService.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace IdentityService.Domain.Entities;
 
