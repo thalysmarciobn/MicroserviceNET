@@ -13,28 +13,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Cache Docker layers
-      uses: actions/cache@v3
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-docker-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-docker-
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
-    - name: Build Docker image
-      run: |
-        docker build -t identity-service:latest -f Services/IdentityService/IdentityService.API/Dockerfile .
-      
-    - name: Run Docker container
-      run: |
-        docker run -d -p 5100:5100 -p 5101:5101 identity-service:latest
+      - name: Build Docker image
+        run: |
+          docker build -t identity-service:latest -f Services/IdentityService/IdentityService.API/Dockerfile .
 
-    - name: Verify container is running
-      run: |
-        docker ps
+      - name: Save Docker image as .tar
+        run: |
+          docker save identity-service:latest -o identity-service-latest.tar
+          
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: identity-service-docker-image
+          path: identity-service-latest.tar
