@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Services\IdentityService\IdentityService.Application\IdentityService.Application.csproj" />
+      <ProjectReference Include="..\..\Services\IdentityService\IdentityService.Infrastructure\IdentityService.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
