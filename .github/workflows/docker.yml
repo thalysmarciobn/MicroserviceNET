@@ -1,15 +1,12 @@
-name: Deploy Docker Application
+name: Build and Push Docker image to Docker Hub
 
 on:
   push:
     branches:
       - test
-  pull_request:
-    branches:
-      - test
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,16 +24,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_KEY }}
+
       - name: Build Docker image
         run: |
-          docker build -t identity-service:latest -f Services/IdentityService/IdentityService.API/Dockerfile .
+          docker build -t thalysmarciobn/identityservice.api:latest -f Services/IdentityService/IdentityService.API/Dockerfile .
 
-      - name: Save Docker image as .tar
+      - name: Push Docker image to Docker Hub
         run: |
-          docker save identity-service:latest -o identity-service-latest.tar
-
-      - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: identity-service-docker-image
-          path: identity-service-latest.tar
+          docker push thalysmarciobn/identityservice.api:latest
