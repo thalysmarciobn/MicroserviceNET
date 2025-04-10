@@ -1,40 +1,39 @@
-name: Deploy Docker Application
+name: Build and Push Docker image to Docker Hub
 
 on:
   push:
     branches:
-      - main
-  pull_request:
-    branches:
-      - main
+      - test
 
 jobs:
-  build:
+  service-identity-api:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-    - name: Cache Docker layers
-      uses: actions/cache@v3
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-docker-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-docker-
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
-    - name: Build Docker image
-      run: |
-        docker build -t identity-service:latest -f Services/IdentityService/IdentityService.API/Dockerfile .
-      
-    - name: Run Docker container
-      run: |
-        docker run -d -p 5100:5100 -p 5101:5101 identity-service:latest
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_KEY }}
 
-    - name: Verify container is running
-      run: |
-        docker ps
+      - name: Build Docker image
+        run: |
+          docker build -t thalysmarciobn/identityservice.api:latest -f Services/IdentityService/IdentityService.API/Dockerfile .
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push thalysmarciobn/identityservice.api:latest
