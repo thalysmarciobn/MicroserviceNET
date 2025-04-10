@@ -13,35 +13,23 @@ public class UserRepository(ApplicationDbContext context) : IUserRepository
             .FirstOrDefaultAsync(u => u.Login == username && u.Password == password);
     }
 
+    public Task<bool> UserExistsAsync(string username) =>
+        context.Users.AnyAsync(x => x.Login == username);
+
     public async Task<bool> InsertUserAsync(string username, string password)
     {
-        await using var transaction = await context.Database.BeginTransactionAsync();
-
-        try
-        {
-            if (await context.Users.AnyAsync(x => x.Login == username))
-            {
-                return false;
-            }
-
-            await context.Users.AddAsync(new User
-            {
-                Login = username,
-                Password = password,
-                CreatedAt = DateTime.Now
-            });
-
-            await context.SaveChangesAsync();
-            
-            await transaction.CommitAsync();
-            
-            return true;
-        }
-        catch
-        {
-            await transaction.RollbackAsync();
-            
+        if (await UserExistsAsync(username))
             return false;
-        }
+
+        var user = new User
+        {
+            Login = username,
+            Password = password,
+            CreatedAt = DateTime.Now
+        };
+
+        await context.Users.AddAsync(user);
+
+        return await context.SaveChangesAsync() > 0;
     }
 }
